@@ -17,10 +17,18 @@ public class RoomDTO {
 	private Timestamp created_datetime; //생성날짜
 	private Double lat;//위도
 	private Double lng;//경도
+	private String filename; //파일
 	
 	
 	
-	public int getId_no() {
+	
+	public String getFilename() {
+        return filename;
+    }
+    public void setFilename(String filename) {
+        this.filename = filename;
+    }
+    public int getId_no() {
 		return id_no;
 	}
 	public void setId_no(int id_no) {

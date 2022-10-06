@@ -107,6 +107,7 @@ public class RoomDAO {
 	public void insertRoom(RoomDTO room) {
 		// 1. rooms
 		int room_no = room.getRoom_no(); // 0 신규글 0이아닌경우(답변글)
+		System.out.println("3.room_no->"+room_no);
 		int number = 0; // 데이터를 저장하기위한 게시물 번호
 		
 		
@@ -118,11 +119,11 @@ public class RoomDAO {
 			if (rs.next()) {// 보여주는 결과가 있다면
 				number = rs.getInt(1) + 1;// 최대값+1
 				room_no=number;
-				System.out.println("room_no=>"+room_no);
-				sql = "INSERT INTO Room (room_no,id_no, title, address,view ,room_count, room_option, fee,room_info, lat, lng)";
-	            sql += "VALUE (?,?,?,?,?,?,?,?,?,?,?)";
+				System.out.println("4.room_no=>"+room_no);
+				sql = "INSERT INTO Room (room_no,id_no, title, address,view ,room_count, room_option, fee,room_info, lat, lng,filename)";
+	            sql += "VALUE (?,?,?,?,?,?,?,?,?,?,?,?)";
 	            pstmt = con.prepareStatement(sql);
-	            pstmt.setInt(1, room_no);
+	            pstmt.setInt(1,room_no);
 	            pstmt.setInt(2, room.getId_no());
 	            pstmt.setString(3, room.getTitle());
 	            pstmt.setString(4, room.getAddress());
@@ -133,6 +134,8 @@ public class RoomDAO {
 	            pstmt.setString(9, room.getRoom_info());
 	            pstmt.setDouble(10, room.getLat());
 	            pstmt.setDouble(11, room.getLng());
+	            //추가
+	            pstmt.setString(12, room.getFilename());
 	            int insert = pstmt.executeUpdate();
 	            System.out.println("게시판의 글쓰기 성공유무(insert)=>" + insert);
 			} else {
@@ -190,33 +193,12 @@ public class RoomDAO {
 		room.setRoom_info(rs.getString("room_info"));
 		room.setLat(rs.getDouble("lat"));
 		room.setLng(rs.getDouble("lng"));
+		//추가
+		room.setFilename(rs.getString("filename"));
 		return room;
 	}
 
 	// ------------------------------------------------------------------
-	// 글수정
-	public RoomDTO updateGetRoom(int room_no) {
-
-		RoomDTO room = null;
-		MemberDTO mem = null;
-		try {
-			con = pool.getConnection();
-			sql = "select * from Room where room_no=?";
-			pstmt = con.prepareStatement(sql);
-			pstmt.setInt(1, room_no);
-			rs = pstmt.executeQuery();
-			if (rs.next()) {// 보여주는 결과가 있다면
-				room = makeRoomFromResult();// 생성된 객체를 얻어온다.
-				mem.setId_no(rs.getInt("id_no"));
-			}
-		} catch (Exception e) {
-			System.out.println("updateGetRoom() 에러유발=>" + e);
-		} finally {
-			pool.freeConnection(con, pstmt, rs);
-		}
-		return room;
-	}
-
 
 	// 2)수정시키는 메서드 작성=>본인인지 확인절차=>회원탈퇴(암호를 비교=->탈퇴)와 동일한 기능
 	public int updateRoom(RoomDTO room,MemberDTO mem) {// insertArticle(BoardDTO article)

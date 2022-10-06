@@ -56,7 +56,7 @@
 							<tbody>
 								<tr>
 									<td>방 개수 :</td>
-									<td>${room_count }</td>
+									<td>${room.room_count}</td>
 									<td>공과금 :</td>
 									<td>${room.fee}</td>
 									<th>조회수 :</th>
@@ -67,8 +67,12 @@
 									<td colspan="5">${room.room_option }</td>
 								</tr>
 								<tr>
-									<td>방정보 :</td>
+									<td>방 정보 :</td>
 									<td colspan="5">${room.room_info }</td>
+								</tr>
+								<tr>
+									<td>방 사진 :</td>
+									<td colspan="5">${room.filename}</td>
 								</tr>
 							</tbody>
 						</table>

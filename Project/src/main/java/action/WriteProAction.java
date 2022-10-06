@@ -13,8 +13,6 @@ public class WriteProAction implements CommandAction {
 
 		// 1.writePro.jsp의 자바처리 구문
 		request.setCharacterEncoding("utf-8");// 한글처리
-		System.out.println("request.getParameter(id_no)=>"+request.getParameter("id_no"));
-		System.out.println("request.getParameter(room_no)=>"+request.getParameter("room_no"));
 		
 		RoomDTO room = new RoomDTO();
 		//MemberDTO mem = new MemberDTO();
@@ -29,7 +27,8 @@ public class WriteProAction implements CommandAction {
 		room.setRoom_info(request.getParameter("room_info"));
 		room.setLat(Double.parseDouble(request.getParameter("lat")));
 		room.setLng(Double.parseDouble(request.getParameter("lng")));
-		
+		//추가
+		room.setFilename(request.getParameter("filename"));
 		System.out.println("세팅후");
 		System.out.println("request.getParameter(id_no)=>"+request.getParameter("id_no"));
 		System.out.println("request.getParameter(room_no)=>"+request.getParameter("room_no"));

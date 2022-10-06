@@ -10,6 +10,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>WedRoom</title>
 <script language="JavaScript" src="test/js/scripts.js"></script>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 <link href="test/css/main.css?after" rel="stylesheet" type="text/css" />
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
@@ -17,6 +18,60 @@
 	integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
 	crossorigin="anonymous" />
 </head>
+<script type="text/javascript">
+	//이미지 미리보기
+	var sel_file;
+
+	$(document).ready(function() {
+		$("#file1").on("change", handleImgFileSelect);
+	});
+
+	function handleImgFileSelect(e) {
+		var files = e.target.files;
+		var filesArr = Array.prototype.slice.call(files);
+
+		var reg = /(.*?)\/(jpg|jpeg|png|bmp)$/;
+
+		filesArr.forEach(function(f) {
+			if (!f.type.match(reg)) {
+				alert("확장자는 이미지 확장자만 가능합니다.");
+				return;
+			}
+
+			sel_file = f;
+
+			var reader = new FileReader();
+			reader.onload = function(e) {
+				$("#img").attr("src", e.target.result);
+			};
+			reader.readAsDataURL(f);
+		});
+	}
+</script>
+
+<script>
+	//파일 업로드
+	function fn_submit() {
+		var form = new FormData();
+		form.append("file1", $("#file1")[0].files[0]);
+
+		jQuery.ajax({
+			url : "/share.do",
+			type : "POST",
+			processData : false,
+			contentType : false,
+			data : form,
+			success : function(response) {
+				alert("성공하였습니다.");
+				console.log(response);
+			},
+			error : function(jqXHR) {
+				alert(jqXHR.responseText);
+			},
+		});
+	}
+	
+</script>
 <body>
 	<div class="wrap">
 		<!-- 로고 -->
@@ -42,15 +97,15 @@
 					<!-- onsubmit 이벤트="return 호출할 함수명(~)" -->
 					<h2 style="text-align: left; margin-left: 30px">방 생성하기</h2>
 					<br>
-		
+
 					<form class="row g-6 needs-validation" novalidate method="post"
 						name="writeform" action="/Project/share_writePro.do"
 						onsubmit="return writeSave()">
 						<!-- 로그인 테이블 만들어지면 히든값 수정하기 -->
+						<input type="hidden" name="room_no" value=${room_no}>
 						<%-- <input type="hidden" name="id_no" value="${id_no}"> --%>
 						<input type="hidden" name="id_no" value="1"> <input
-							type="hidden" name="view" value="0"> <input type="hidden"
-							name="room_no" value="${room_no}">
+							type="hidden" name="view" value="0">
 
 						<!-- <div class="col-md-3">
 								<label for="validationCustom01" class="form-label">방 번호
@@ -112,8 +167,47 @@
 								placeholder="도로명 주소(경도)를 입력해주세요" name="lng" readonly />
 							<div class="invalid-feedback">Please provide a valid city.</div>
 						</div>
-						<br><br>
-						<br><br>
+						<br> <br>
+						<div>
+							<label for="file1">파일</label> <input type="file" id="file1"
+								name="file1" />
+							<button id="btn_submit" onclick="javascript:fn_submit()">
+								전송</button>
+						</div>
+
+						<div>
+							<div class="img_wrap">
+								<img id="img" />
+							</div>
+						</div>
+						<input type="file" class="real-upload" accept="image/*" required
+							multiple>
+						<div class="upload"></div>
+						<script>
+						    function getImageFiles(e) {
+						      const files = e.currentTarget.files;
+						      console.log(typeof files, files);
+						    }
+						
+						    const realUpload = document.querySelector('.real-upload');
+						    const upload = document.querySelector('.upload');
+						
+						    upload.addEventListener('click', () => realUpload.click());
+						    realUpload.addEventListener('change', getImageFiles);
+						  </script>
+
+						<!-- <div class="offset-md-2 col-md-9">
+							<label for="validationCustom11" class="form-label">방 사진
+								업로드</label>
+							<div class="input-group">
+								<input type="file" class="form-control" id="validationCustom11"
+									name="filename">
+									aria-describedby="inputGroupFileAddon04" aria-label="Upload">
+								<button class="btn btn-outline-secondary" type="button"
+									id="inputGroupFileAddon04">찾아보기</button>
+							</div>
+						</div>  -->
+						<br> <br> <br> <br>
 						<div class="div_btnbox">
 							<input type="submit" value="방 추가"
 								class="btn btn-outline-primary btn-lg" /> <input type="reset"
