@@ -69,7 +69,7 @@ public class ListAction implements CommandAction {
 	}
 	
 	//2.처리한 결과를 공유(서버메모리에 저장)=>이동할페이지에 공유(request)
-	//								13개
+
 	request.setAttribute("search", search);//${search}
 	request.setAttribute("searchtext", searchtext);
 	request.setAttribute("pgList", pgList);//10개 들어있는거

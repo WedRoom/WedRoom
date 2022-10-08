@@ -51,6 +51,7 @@
                     <div class="pf_top">
                         <div class="pf_img"> 
                             <!-- 이미지 -->
+                             <input type="file" class="real-upload" accept="image/*" required multiple>
                         </div> 
                     </div>
                     <div class="pf_body">
@@ -76,7 +77,6 @@
                                     <td bgcolor="#F5F5F5"><b>성향</b></td>
                                     <td colspan="3">
                                         <input type="text" class="pf_input" style="width: 80%;"  >
-                                        <input class="btn btn-outline-secondary" type="submit" value="추가하기">
                                     </td>
                                 </tr>
                                 <tr>
