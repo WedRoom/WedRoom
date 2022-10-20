@@ -27,6 +27,47 @@ public class MemberDAO {// XXXXMgr or XXXXDAO
     }
 
     // 3.요구 분석에 따른 웹 상에서 호출할 메서드를 작성
+    //0)세션처리 용?
+//    public int loginSession(String id, String password) {
+//    	int id_no=0;
+//    	try {
+//    		con = pool.getConnection();
+//    		sql = "select id_no from Member where id=? and password=?";
+//            pstmt = con.prepareStatement(sql);
+//            pstmt.setString(1, id);
+//            pstmt.setString(2, password);
+//            rs = pstmt.executeQuery();
+//            if (rs.next()) {
+//            	id_no=rs.getInt(1);
+//            }
+//    	} catch(Exception e) {
+//    		System.out.println("loginSession() 실행에러유발=>" + e);
+//        } finally {
+//            pool.freeConnection(con, pstmt, rs);
+//        }
+//    	return id_no;
+//    }
+    
+    public int loginSession(String id) {
+    	int id_no=0;
+    	try {
+    		con = pool.getConnection();
+    		sql = "select id_no from Member where id=?";
+            pstmt = con.prepareStatement(sql);
+            pstmt.setString(1, id);
+            rs = pstmt.executeQuery();
+            if (rs.next()) {
+            	id_no=rs.getInt(1);
+            }
+    	} catch(Exception e) {
+    		System.out.println("loginSession() 실행에러유발=>" + e);
+        } finally {
+            pool.freeConnection(con, pstmt, rs);
+        }
+    	return id_no;
+    }
+    
+    
     // 1)회원 로그인
     // sql>select id from member where id=? and password=?
     // sql구문->select구문->반환값O where 조건식 매개변수 O(2개)
@@ -45,7 +86,7 @@ public class MemberDAO {// XXXXMgr or XXXXDAO
             check = rs.next();// 데이터가 존재 true or 없으면 false
             System.out.println(check);
             con.close();
-//            con.commit(); mysql이라 커밋안
+//         con.commit(); mysql이라 커밋안
         } catch (Exception e) {
             System.out.println("loginCheck() 실행에러유발=>" + e);
         } finally {// 3.메모리해제
@@ -90,10 +131,10 @@ public class MemberDAO {// XXXXMgr or XXXXDAO
             pstmt = con.prepareStatement(sql);
             rs = pstmt.executeQuery();
             if (rs.next()) {// 보여주는 결과가 있다면
-                number = rs.getInt(1) + 1;// 최대값+1
-                id_no = number;
-                //int max=rs.getInt(1);
-                //mem.setId_no(max+1);
+                //number = rs.getInt(1) + 1;// 최대값+1
+                //id_no = number;
+                int max=rs.getInt(1);
+                mem.setId_no(max+1);
                 System.out.println("4.id_no=>" + id_no);
                 sql = "insert into Member values(?,?,?,?,?,?,?,?)";
                 // con.prepareStatement(실행시킬SQL구문)
@@ -102,7 +143,7 @@ public class MemberDAO {// XXXXMgr or XXXXDAO
                 pstmt.setString(2, mem.getId());
                 pstmt.setString(3, mem.getPassword());
                 pstmt.setString(4, mem.getGender());
-                pstmt.setString(5, mem.getBirth());
+                pstmt.setString(5, mem.getAge());
                 pstmt.setString(6, mem.getPhone());
                 pstmt.setString(7, mem.getEmail());
                 pstmt.setString(8, mem.getKakaotalk());
@@ -142,7 +183,7 @@ public class MemberDAO {// XXXXMgr or XXXXDAO
                 mem.setId(rs.getString("id"));
                 mem.setPassword(rs.getString("password"));
                 mem.setGender(rs.getString("gender"));
-                mem.setBirth(rs.getString("birth"));
+                mem.setAge(rs.getString("age"));
                 mem.setPhone(rs.getString("phone"));
                 mem.setEmail(rs.getString("e_mail"));
                 mem.setKakaotalk(rs.getString("kakaotalk"));
@@ -173,7 +214,7 @@ public class MemberDAO {// XXXXMgr or XXXXDAO
             pstmt.setNString(1, mem.getId());
             pstmt.setNString(2, mem.getPassword());
             pstmt.setNString(3, mem.getGender());
-            pstmt.setNString(4, mem.getBirth());
+            pstmt.setNString(4, mem.getAge());
             pstmt.setNString(5, mem.getPhone());
             pstmt.setNString(6, mem.getEmail());
             pstmt.setNString(7, mem.getKakaotalk());

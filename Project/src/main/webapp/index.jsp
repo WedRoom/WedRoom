@@ -1,3 +1,3 @@
 <%
-	response.sendRedirect("http://localhost:8080/Project/share_list.do");
+	response.sendRedirect("http://localhost:8090/Project/main.jsp");
 %>

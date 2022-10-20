@@ -14,7 +14,7 @@
 	String id = request.getParameter("id");
 	String password = request.getParameter("password");
 	String gender = request.getParameter("gender");
-	String birth = request.getParameter("birth");
+	String age = request.getParameter("age");
 	String phone = request.getParameter("phone");
 	String email = request.getParameter("email");
 	String kakaotalk = request.getParameter("kakaotalk");
@@ -25,7 +25,7 @@
 	memberDTO.setId(id);
 	memberDTO.setPassword(password);
 	memberDTO.setGender(gender);
-	memberDTO.setBirth(birth);
+	memberDTO.setAge(age);
 	memberDTO.setPhone(phone);
 	memberDTO.setEmail(email);
 	memberDTO.setKakaotalk(kakaotalk);
@@ -33,10 +33,10 @@
 	MemberDAO memberDAO = new MemberDAO();
 	System.out.println(memberDAO.memberInsert(memberDTO));
 	
-	RequestDispatcher rd = null;
+/* 	RequestDispatcher rd = null;
 	rd = request.getRequestDispatcher("main.jsp");
 	String result = "회원가입에 성공하였습니다.";
-	request.setAttribute("result", result);
+	request.setAttribute("result", result); */
 	
 	/*
 	 * response.setContentType("text/html; charset=UTF-8"); PrintWriter out =
@@ -48,9 +48,13 @@
 	 * out.close();
 	 */
 	
-	rd.forward(request, response);
+	/* rd.forward(request, response); */
 	%>
 <body>
+<script>
+	alert("회원가입에 성공하셨습니다!")
+	location.href="/Project/main.jsp";
+</script>
 
 </body>
 </html>

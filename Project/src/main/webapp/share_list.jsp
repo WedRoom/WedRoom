@@ -62,7 +62,7 @@
 			<c:set var="roomtest" value="${roomList}"></c:set>
 			<div id="map" style="width: 100%; height: 800px"></div>
 			<script type="text/javascript"
-				src="//dapi.kakao.com/v2/maps/sdk.js?appkey=b73875579de27ab7f4a19edab09ba444&libraries=services"></script>
+				src="//dapi.kakao.com/v2/maps/sdk.js?appkey=33f2ffa7034173e97f93fa088fabcbbd&libraries=services"></script>
 			<script type="text/javascript" src="test/js/map2.js?ver=2">
 					</script>
 			<script type="text/javascript">

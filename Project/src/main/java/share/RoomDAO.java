@@ -121,14 +121,14 @@ public class RoomDAO {
 				number = rs.getInt(1) + 1;// 최대값+1
 				room_no=number;
 				System.out.println("4.room_no=>"+room_no);
-				sql = "INSERT INTO Room (room_no,id_no, title, address,view ,room_count, room_option, fee,room_info, lat, lng,fileName,fileRealName)";
+				sql = "INSERT INTO Room (room_no,id_no, title, address,views,room_count, room_option, fee,room_info, lat, lng,fileName,fileRealName)";
 	            sql += "VALUE (?,?,?,?,?,?,?,?,?,?,?,?,?)";
 	            pstmt = con.prepareStatement(sql);
 	            pstmt.setInt(1,room_no);
 	            pstmt.setInt(2, room.getId_no());
 	            pstmt.setString(3, room.getTitle());
 	            pstmt.setString(4, room.getAddress());
-	            pstmt.setInt(5, room.getView());
+	            pstmt.setInt(5, room.getViews());
 	            pstmt.setString(6, room.getRoom_count());
 	            pstmt.setString(7, room.getRoom_option());
 	            pstmt.setString(8, room.getFee());
@@ -174,7 +174,7 @@ public class RoomDAO {
 		try {
 			con = pool.getConnection();
 
-			sql = "update Room set view=view+1 where room_no=?";
+			sql = "update Room set views=views+1 where room_no=?";
 			pstmt = con.prepareStatement(sql);
 			pstmt.setInt(1, room_no);
 			int update = pstmt.executeUpdate();
@@ -204,7 +204,7 @@ public class RoomDAO {
 		room.setId_no(rs.getInt("id_no"));
 		room.setTitle(rs.getString("title"));
 		room.setAddress(rs.getString("address"));
-		room.setView(rs.getInt("view"));
+		room.setViews(rs.getInt("views"));
 		room.setRoom_count(rs.getString("room_count"));
 		room.setRoom_option(rs.getString("room_option"));
 		room.setFee(rs.getString("fee"));

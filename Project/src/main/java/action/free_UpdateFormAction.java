@@ -3,7 +3,7 @@ package action;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import free.board.*;
+import free.*;
 
 public class free_UpdateFormAction implements CommandAction {
 
@@ -21,7 +21,7 @@ public class free_UpdateFormAction implements CommandAction {
 		  //2.서버의 메모리에 저장
 		  request.setAttribute("pageNum", pageNum);
 		  request.setAttribute("article",article);
-		
+
 		return "/free_updateForm.jsp";
 	}
 }

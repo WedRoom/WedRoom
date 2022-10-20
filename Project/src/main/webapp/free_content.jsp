@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="free.board.*,free.comment.*,java.util.ArrayList"%>
+    pageEncoding="UTF-8" import="free.*,java.util.ArrayList"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
@@ -16,14 +16,14 @@
         <!-- 로고 -->
         <header class="hd">
             <div class="logo">
-                <a href="#"><img src="image/logo.png"></a>
+                <a href="main.jsp"><img src="image/logo.png"></a>
             </div>
         </header>
         <!-- 메뉴바 -->
         <nav class="nav">
             <ul class="menu">
-                <li><a href="#">쉐어하우스</a></li>
-                <li><a href="#">룸메이트</a></li>
+                <li><a href="share_list.do">쉐어하우스</a></li>
+                <li><a href="mate_list.do">룸메이트</a></li>
                 <li><a href="free_list.do">자유게시판</a></li>
                 <li><a href="#">공지사항</a></li>
                 <li><a href="tendency.do">성향테스트</a></li>
@@ -34,9 +34,8 @@
             <p class="title">자유게시판</p>
 <%
 	int free_no=Integer.parseInt(request.getParameter("free_no"));
-	System.out.println("free_content.jsp에서 free_no=>"+free_no);
 	FreeDAO dbPro=new FreeDAO();
-	FreeDTO article=dbPro.getArticle(free_no);	
+	FreeDTO article=dbPro.updateGetArticle(free_no);
 
 	String id=null;
 	if(session.getAttribute("id") != null) {
@@ -119,8 +118,15 @@
 	if(id.equals(list.getId())) {
 %>
                     <form class="btn-comment">
+                    <input type="hidden" name="id" value="${list.id}">
                         <input type="button" class="btn-comupdate" onclick="popup(${article.free_no},${pageNum},${list.comment_no})" value="수정">
                         <input type="button" class="btn-comdelete" onclick="document.location.href='/Project/free_comdeleteForm.do?free_no=${article.free_no}&pageNum=${pageNum}&comment_no=${list.comment_no}'" value="삭제">
+                    </form>
+<%} else { %>
+					<form class="btn-comment">
+                    <input type="hidden" name="id" value="${list.id}">
+                        <input type="button" onclick="popup(${article.free_no},${pageNum},${list.comment_no})" value="">
+                        <input type="button" onclick="document.location.href='/Project/free_comdeleteForm.do?free_no=${article.free_no}&pageNum=${pageNum}&comment_no=${list.comment_no}'" value="">
                     </form>
 <%}%>
                 </table>

@@ -3,7 +3,7 @@ package action;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import free.board.*;
+import free.*;
 
 import java.sql.Timestamp;//추가할 부분(시간)
 

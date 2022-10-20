@@ -6,8 +6,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import free.board.*;
-import free.comment.*;
+import free.*;
 
 // free_content.jsp에 바로 요청->메서드를 호출->처리결과->공유->jsp로 이동
 // /free_content.do?num=3&pageNum=1

@@ -16,14 +16,14 @@
         <!-- 로고 -->
         <header class="hd">
             <div class="logo">
-                <a href="#"><img src="image/logo.png"></a>
+                <a href="main.jsp"><img src="image/logo.png"></a>
             </div>
         </header>
         <!-- 메뉴바 -->
         <nav class="nav">
             <ul class="menu">
-                <li><a href="#">쉐어하우스</a></li>
-                <li><a href="#">룸메이트</a></li>
+                <li><a href="share_list.do">쉐어하우스</a></li>
+                <li><a href="mate_list.do">룸메이트</a></li>
                 <li><a href="free_list.do">자유게시판</a></li>
                 <li><a href="#">공지사항</a></li>
                 <li><a href="tendency.do">성향테스트</a></li>
@@ -88,6 +88,9 @@
                         </tr>
                         </thead>
                         <tbody>
+<%
+	if(id != null) {
+%>                        
                         <c:set var="number"  value="${pgList.number}" />
     					<c:forEach var="article"  items="${articleList}">
                         <tr>
@@ -100,6 +103,20 @@
                             <td>${article.views}</td>
                         </tr>
                         </c:forEach>
+<%} else { %>
+						<c:set var="number"  value="${pgList.number}" />
+    					<c:forEach var="article"  items="${articleList}">
+                        <tr>
+                            <%-- <td><c:out value="${number}" /><c:set var="number"  value="${number-1}" /></td> --%>
+                            <td>${article.free_no}</td>
+                            <!-- num(게시물번호),pageNum(페이지번호) -->
+                            <td><a href="/Project/main.jsp" onclick="alert('로그인 후 이용이 가능합니다.')">${article.title}</a></td>
+                            <td>${article.id}</td>
+                            <td><fmt:formatDate value="${article.created_datetime}"  timeStyle="medium" pattern="yy.MM.dd" /></td>
+                            <td>${article.views}</td>
+                        </tr>
+                        </c:forEach>
+<%}%>
                         </tbody>
                     </table>
             		<!-- 페이징 처리 -->

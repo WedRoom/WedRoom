@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@page import="share.RoomDTO"%>
+<%@page import="share.RoomDTO,member.*"%>
+<jsp:useBean id="tenDao" class="tendency.TendencyDAO" />
+<jsp:useBean id="memMgr" class="member.MemberDAO" />
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -54,7 +56,7 @@
 </script>
  <script>
  function memberRegister(){
-		document.location="agreement.jsp";
+		document.location="./member/agreement.jsp";
 	}
  </script>
 <%
@@ -73,6 +75,12 @@
 	if(session.getAttribute("id") != null) {
 		id=(String)session.getAttribute("id");
 	}
+	int id_no=memMgr.loginSession(id);
+	//int id_no=0;
+	//id_no=(int)session.getAttribute("id_no");
+	//((Integer)(session.getAttribute("id_no"))).intValue();
+	System.out.println("session.id=>"+id+", session.id_no=>"+id_no);
+	boolean check=tenDao.checkTendency(id_no);
 %>
 </head>
 <body>
@@ -80,7 +88,7 @@
         <!-- 로고 -->
         <header class="hd">
             <div class="logo">
-                <a href="index.html"><img src="./test/img/logo.png" class="main-logo"></a>
+                <a href="main.jsp"><img src="image/logo.png" class="main-logo"></a>
             </div>
         <!-- 메뉴바 -->
         <div class="menu-bar">
@@ -88,8 +96,12 @@
                 <li class="menu1"><a href="share_list.do">쉐어하우스</a></li>
                 <li class="menu2"><a href="mate_list.do">룸메이트</a></li>
                 <li class="menu3"><a href="free_list.do">자유게시판</a></li>
-                <li class="menu4"><a href="notice.do">공지사항</a></li>
-                <li><a href="#">성향테스트</a></li>
+                <li class="menu4"><a href="notice_list.do">공지사항</a></li>
+<%if(check==true){%>
+				<li class="menu5"><a href="tendency_updateForm.do?id_no=<%=id_no%>">성향테스트</a></li>
+<%} else {%>
+                <li class="menu5"><a href="tendency.do?id_no=<%=id_no%>">성향테스트</a></li>
+<%}%>
             </ul>
         </div>
         </header>
@@ -97,8 +109,8 @@
         <!-- 메뉴 밑 이미지 -->
         <nav class="nav">
             <div class="img">
-                <a class="imgs"><img src="./test/img/main_img.PNG"></a>
-                <button type="button" class="room_btn" onClick="location.href='roommate.jsp'">바로가기</button>
+                <a class="imgs"><img src="image/main_img.PNG"></a>
+                <button type="button" class="room_btn" onClick="location.href='mate.do'">바로가기</button>
             </div>
         </nav>
 <%
@@ -111,7 +123,7 @@
                 <form name="login" method="post" action="login_Pro.jsp">
                     <input type="text" name="id" placeholder="아이디"><br>
                     <input type="password" name="password" placeholder="비밀번호">
-                    <button type="submit" class="login_btn" onclick="loginCheck()">로그인</button>
+                    <button type="submit" class="login_btn">로그인</button>
                 </form>
                 <br>
                 <a class="text1" href="#">아이디 | 비밀번호 찾기</a>
@@ -126,8 +138,9 @@
             <nav class="nav2_2">
                 <p>환영합니다.</p>
                 <img src="image/personal.PNG" alt="">
+                <input type="hidden" name="id_no" value="<%=id_no%>">
                 <strong><%=(String)session.getAttribute("id")%>님</strong>
-                <button type="button" class="logout_btn" onclick="location.href='logoutAction.jsp'">로그아웃</button>
+                <button type="button" class="logout_btn" onclick="location.href='./login/logoutAction.jsp'">로그아웃</button>
                 <br>
                 <a class="text3" href="#">회원수정</a>
                 <a class="text4" href="#">회원탈퇴</a>
@@ -145,25 +158,25 @@
                         <div class="room">
                             <img src="/Project/fileFolder/seuol.jpeg" alt="" class="img-fluid">
                             <h3>서울 호캉스</a></h3>
-                            <p><a href="share_content.do?room_no=73">상세정보</a></p>
+                            <p><a href="./share_content.do?room_no=73">상세정보</a></p>
                         </div>
                    
                         <div class="room">
                             <img src="/Project/fileFolder/room2.jpeg" alt="" class="img-fluid">
                             <h3>해뜨는곳</a></h3>
-                            <p><a href="share_content.do?room_no=71">상세정보</a></p>
+                            <p><a href="./share_content.do?room_no=71">상세정보</a></p>
                         </div>
                       
                         <div class="room">
                             <img src="/Project/fileFolder/busan.jpeg" alt="" class="img-fluid">
                             <h3>부산 호캉스</a></h3>
-                            <p><a href="share_content.do?room_no=74">상세정보</a></p>
+                            <p><a href="./share_content.do?room_no=74">상세정보</a></p>
                         </div>
                         
                         <div class="room">
                             <img src="/Project/fileFolder/jeju.jpeg" alt="" class="img-fluid">
                             <h3>제주 호캉스</a></h3>
-                            <p><a href="share_content.do?room_no=75">상세정보</a></p>
+                            <p><a href="./share_content.do?room_no=75">상세정보</a></p>
                         </div>
                             
                     </div>

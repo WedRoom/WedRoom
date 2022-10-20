@@ -18,7 +18,7 @@ function idCheck(id){
 		return false;
 	}
     createXHR()//xhrObject
-	var url = "http://localhost:8080/Project/member?id="+id;
+	var url = "http://localhost:8090/Project/member?id="+id;
 	//alert(url);
 	//2.콜백함수를 지정
 	xhrObject.onreadystatechange=resultProcess;

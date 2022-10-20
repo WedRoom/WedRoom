@@ -15,7 +15,7 @@ public class share_WriteProAction implements CommandAction {
 	public String requestPro(HttpServletRequest request, HttpServletResponse response) throws Throwable {
 		// TODO Auto-generated method stub
 	    
-	    String directory="/Users/bumkey/국비교육/4.JSP/sou/Project/src/main/webapp/fileFolder";
+	    String directory="C:\\webtest\\4.jsp\\sou\\Project\\src\\main\\webapp\\fileFolder";
 	    int maxsize = 1024 * 1024 * 100;
 	    String encoding="UTF-8";
 		request.setCharacterEncoding("utf-8");// 한글처리
@@ -31,7 +31,7 @@ public class share_WriteProAction implements CommandAction {
 	            room.setId_no(Integer.parseInt(multi.getParameter("id_no")));
 	            room.setTitle(multi.getParameter("title"));
 	            room.setAddress(multi.getParameter("address"));
-	            room.setView(Integer.parseInt(multi.getParameter("view")));
+	            room.setViews(Integer.parseInt(multi.getParameter("views")));
 	            room.setRoom_count(multi.getParameter("room_count"));
 	            room.setRoom_option(multi.getParameter("room_option"));
 	            room.setFee(multi.getParameter("fee"));

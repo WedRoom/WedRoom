@@ -3,7 +3,7 @@ package action;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import free.board.Free_comDAO;
+import free.Free_comDAO;
 //import free.board.*;
 import free.comment.*;
 

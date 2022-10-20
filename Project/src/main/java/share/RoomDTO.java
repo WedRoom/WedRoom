@@ -6,7 +6,7 @@ public class RoomDTO {
 	private int room_no;//게시판번호
 	private int id_no; //외래키
 	private String title;//제목
-	private int view;//조회수
+	private int views;//조회수
 	private String address; //주소
 	private String room_count; //방갯수
 	private String room_option; //옵션
@@ -64,11 +64,11 @@ public class RoomDTO {
 	public void setRoom_no(int room_no) {
 		this.room_no = room_no;
 	}
-	public int getView() {
-		return view;
+	public int getViews() {
+		return views;
 	}
-	public void setView(int view) {
-		this.view = view;
+	public void setViews(int views) {
+		this.views = views;
 	}
 	public String getAddress() {
 		return address;
